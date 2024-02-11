@@ -15,6 +15,7 @@ const { DecodeData } = require('./controllers/decode');
 
 //* db
 const db = require('./config/instance');
+const { DataTypes } = require('sequelize');
 
 //* Constant variables
 const app = express();
@@ -24,7 +25,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
-require('./config/models');
+require('./config/models').User;
 
 //* DB
 db.sync().then(() => console.log('base de datos conectada'));

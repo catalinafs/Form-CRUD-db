@@ -30,11 +30,46 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     fontWeight: 600,
-                    '&::placeholder': {
-                        color: 'red',
+                    '&.Mui-focused': {
+                        color: '#c987e3',
+                    },
+                    '&:not(.Mui-focused)': {
+                        color: '#ad74c4',
                     },
                 },
             },
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    color: "#fff",
+                    "& .MuiOutlinedInput-root": {
+                        fontWeight: 500,
+                        color: "#f8f8f8",
+                        borderRadius: "8px",
+                        '& fieldset': {
+                            borderColor: '#ad74c4',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#c987e3',
+                        },
+                        '&:hover:not(.Mui-focused):not(.Mui-error):not(.Mui-disabled) fieldset': {
+                            borderColor: '#dc91fa',
+                        },
+                    },
+                },
+            },
+            variants: [
+                {
+                    props: { variant: "outlined" },
+                    style: {
+                        borderColor: "red !important",
+                        "input::before": {
+                            borderBottomColor: "red !important"
+                        }
+                    }
+                }
+            ]
         },
         MuiButton: {
             defaultProps: {
@@ -56,7 +91,7 @@ const theme = createTheme({
                 {
                     props: { variant: "contained" },
                     style: {
-                        color: '#252525',
+                        color: '#221427',
                         backgroundColor: "#c987e3e0",
                         border: 0,
                         ":hover": {
