@@ -1,34 +1,32 @@
 const bcrypt = require('bcrypt');
-const fs = require('fs');
+const db = require('../config/instance');
+const User = require('../config/models/user')(db);
+const useValidPass = require('../helpers/useValidPass');
+const useId = require('../helpers/useId');
 
-const pathfile = './info.json';
-let info;
-
-fs.readFile(pathfile, 'utf8', (err, data) => {
-    if (err) console.log('❗Error al leer el archivo: ', err);
-
-    info = JSON.parse(data);
-    console.log(JSON.parse(data))
-});
-
-const RegisterUser = (req, res) => {
+const RegisterUser = async (req, res) => {
     const { body } = req;
 
-    console.log(body)
-    const exists = info.find((user) => { return user.email === body.email && bcrypt.compareSync(body.password, user.password) });
+    const uniqueID = useId();
 
-    if (exists) res.status(400).json({ msg: 'este usuario ya existe' });
+    try {
+        const user = await User.findOne({
+            where: { email: body.email },
+            raw: true,
+        });
 
-    body['password'] = bcrypt.hashSync(body.password, 10);
+        if (user && useValidPass(body.password, user.password)) {
+            return res.status(400).json({ msg: 'el usuario ya existe' });
+        }
 
-    info.push(body);
-    console.log(info)
+        body['password'] = bcrypt.hashSync(body.password, 10);
 
-    let jsonInfo = JSON.stringify(info);
+        await User.create({ id: uniqueID, ...body });;
 
-    fs.writeFileSync(pathfile, jsonInfo);
-
-    res.status(200).json({ msg: 'se agrego correctamente el usuario' });
+        res.status(200).json({ msg: 'se agrego correctamente el usuario' });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
 }
 
 module.exports = {

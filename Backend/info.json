@@ -1,1 +1,93 @@
-[{"name":"Catalina","lastname":"Forero","phone":1234567890,"email":"catalinaforerosuarez@gmail.com","password":"$2b$10$t7fXTAjvPfdBwccYx4h9Su.Nis1MnVV5ZFJWF4XUq1R9E.R1Q9iGK"},{"name":"Holis","lastname":"Como","phone":1234567890,"email":"holis@gmail.com","password":"$2b$10$IKUvk54/VghUBJ7gkUgSO.IAr6J3T/O0O.9HuvOk2CYuZzBFh80Lm"},{"name":"Chao","lastname":"Como","phone":1234567890,"email":"chao@gmail.com","password":"$2b$10$wiYE9Q6lqMVGa.HK5Er.T.vDMrjcE7003Viou3jxVoA6TSiSwJWSK"}]
+[
+    {
+        "name": "Catalina",
+        "lastname": "Forero",
+        "phone": 1234567890,
+        "email": "catalinaforerosuarez@gmail.com",
+        "password": "$2b$10$t7fXTAjvPfdBwccYx4h9Su.Nis1MnVV5ZFJWF4XUq1R9E.R1Q9iGK"
+    },
+    {
+        "name": "Holis",
+        "lastname": "Como",
+        "phone": 1234567890,
+        "email": "holis@gmail.com",
+        "password": "$2b$10$IKUvk54/VghUBJ7gkUgSO.IAr6J3T/O0O.9HuvOk2CYuZzBFh80Lm"
+    },
+    {
+        "name": "Chao",
+        "lastname": "Como",
+        "phone": 1234567890,
+        "email": "chao@gmail.com",
+        "password": "$2b$10$wiYE9Q6lqMVGa.HK5Er.T.vDMrjcE7003Viou3jxVoA6TSiSwJWSK"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$izS2A29q5zsgQUvhWiifEO/CMLGjYlscHH12CA2FqUpW5CzieS5Wa"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$WXUA8FDheScofT4kdd35puzruVITHlSKTbJKYYTGAHXrfturmTTX6"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@df.sdf",
+        "password": "$2b$10$PQ.QNUpLlFOdcCBskseSY.uBO47atjPNCs6Yp.7GLF1iIWo3wv3p."
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$tTqDrq8im2qnqYdqMNqPVORr7rr2x63UMcEeOKip0Mc3Ms0d//hnm"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$fh7inyYF0kpxgpDDwf.WKuowqXC4uupISwMJQXs4W4T51XygGeeM2"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$YgAuZzJlAxgemb0qXdokqeDGzNei43Uk4SiUMsnLVptocvcmopkfq"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$npPWNtsmx1HkMpF.2qBU9eehWGT0BowF/SBai5owv0zuJxpOvTTnG"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$NI16YAmTqVyHsAm.5NARjuI2rC1x2oXqzaa8LaTncIY9CoWpISEs."
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$OqSR2cz0G1gRtk3udPyhEee9qK2g/qqMaG.AAr9CGF0uzlopk7RjG"
+    },
+    {
+        "name": "Catalina",
+        "lastname": "Fhfhfgh",
+        "phone": 1234567890,
+        "email": "dfs@dsf.sdf",
+        "password": "$2b$10$jMY36fBSgvTpXWbhEuoIVeaTueZkOXCODN5j9cmXi5dlVkaU1Hi2u"
+    }
+]

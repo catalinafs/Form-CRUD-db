@@ -1,28 +1,36 @@
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const db = require('../config/instance');
+const User = require('../config/models/user')(db);
 
-const pathfile = './info.json';
-
-let info;
-
-fs.readFile(pathfile, 'utf8', (err, data) => {
-    if (err) console.log('❗Error al leer el archivo: ', err);
-
-    info = JSON.parse(data);
-});
-
-const DecodeData = (req, res) => {
+const DecodeData = async (req, res) => {
     const { token } = req.body;
 
-    const decode = jwt.verify(token, process.env.SECRET_KEY)
+    try {
+        const decode = jwt.verify(token, process.env.SECRET_KEY);
 
-    const userData = info.find((user) => { return user.email === decode.email && user.id === decode.id });
+        const user = await User.findOne({
+            where: {
+                email: decode.email,
+            },
+            raw: true,
+        });
 
-    if (!userData || userData === undefined) res.status(401).json({ msg: 'Token erroneo' });
+        if (!user) {
+            return res.status(400).json({ msg: 'Token erroneo' });
+        }
 
-    delete userData.password;
+        if (decode.id !== user.id) {
+            return res.status(400).json({ msg: 'Token erroneo' });
+        }
 
-    res.status(200).json({ user: userData });
+        let userData = { ...user };
+
+        delete userData.password;
+
+        res.status(200).json({ user: userData });
+    } catch (err) {
+        res.status(400).json({ user: err.message });
+    }
 }
 
 module.exports = {

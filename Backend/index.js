@@ -16,6 +16,7 @@ const { DecodeData } = require('./controllers/decode');
 //* db
 const db = require('./config/instance');
 const { DataTypes } = require('sequelize');
+const getRequest = require('./holis');
 
 //* Constant variables
 const app = express();
@@ -25,7 +26,8 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
-require('./config/models').User;
+//* Model Tables
+const User = require('./config/models/user')(db);
 
 //* DB
 db.sync().then(() => console.log('base de datos conectada'));
@@ -38,6 +40,8 @@ app.post('/encode', validLogin, EncodeData);
 
 //? POST: decode endpoint
 app.post('/decode', validToken, DecodeData);
+
+app.get('/', getRequest);
 
 //* Listening app
 app.listen(port, () => {

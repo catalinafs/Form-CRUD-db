@@ -1,29 +1,36 @@
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const db = require('../config/instance');
+const useValidPass = require('../helpers/useValidPass');
+const User = require('../config/models/user')(db);
 
-const pathfile = './info.json';
-
-let info;
-
-fs.readFile(pathfile, 'utf8', (err, data) => {
-    if (err) console.log('❗Error al leer el archivo: ', err);
-
-    console.log(JSON.parse(data))
-    info = JSON.parse(data);
-});
-
-const EncodeData = (req, res) => {
+const EncodeData = async (req, res) => {
     const { email, password } = req.body;
 
-    const userData = info.find((user) => { return user.email === email && bcrypt.compareSync(password, user.password) });
+    try {
+        const user = await User.findOne({
+            where: {
+                email: email,
+            },
+            raw: true,
+        });
 
-    console.log(userData)
-    if (!userData || userData === undefined) res.status(404).json({ msg: 'Usuario no encontrado' });
+        if (!user) {
+            return res.status(400).json({ msg: 'Usuario no registrado' });
+        }
 
-    const encode = jwt.sign(userData, process.env.SECRET_KEY);
+        if (!useValidPass(password, user.password)) {
+            return res.status(400).json({ msg: 'Usuario no registrado' });
+        }
 
-    res.status(200).json({ token: encode });
+        const encode = jwt.sign(user, process.env.SECRET_KEY);
+
+        res.status(200).json({
+            msg: 'Token creado exitosamente',
+            token: encode
+        });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
 }
 
 module.exports = {
