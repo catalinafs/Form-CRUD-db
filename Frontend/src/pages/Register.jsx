@@ -39,6 +39,7 @@ const Register = () => {
 
         try {
             const response = await axios.post('http://localhost:8463/register', form);
+            
             // Success Alert
             useToast({
                 text: response.data.msg,
