@@ -64,10 +64,6 @@ app.get('/visit/place/:place_id', GetUsersPlace);
 //? GET: get all the places one user visit
 app.get('/visit/user/:user_id', GetPlacesUser);
 
-// Visit.findAll({
-//     where: { id_user: 1, id_place: 2 },
-// });
-
 //* Listening app
 app.listen(port, () => {
     console.log('its working on port: ' + port);
