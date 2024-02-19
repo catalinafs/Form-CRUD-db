@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
-const db = require('../config/instance');
 const useValidPass = require('../helpers/useValidPass');
-const User = require('../config/models/user')(db);
+const User = require('../db/models/user');
 
 const EncodeData = async (req, res) => {
     const { email, password } = req.body;
@@ -33,6 +32,4 @@ const EncodeData = async (req, res) => {
     }
 }
 
-module.exports = {
-    EncodeData
-};
+module.exports = EncodeData;

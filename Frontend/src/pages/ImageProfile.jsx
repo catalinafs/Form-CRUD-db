@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 // Hooks, Clients, Global States, etc.
 import axios from 'axios';
+import useBase64 from '../hooks/useBase64';
 
 // Custom Components
 import Layout from "../components/Layout";
@@ -25,7 +26,7 @@ import AddIcon from '@mui/icons-material/Add';
 import colors from '../utils/colors';
 
 const initForm = {
-    imageFile: '',
+    image: '',
 };
 
 const fileMaxSize = 500 * 1024;
@@ -47,26 +48,26 @@ const Upload = () => {
         if (!files[0]?.type.startsWith('image/')) {
             setFormError((props) => ({
                 ...props,
-                imageFile: 'El tipo de archivo no es permitido, solo se aceptan de tipo .png, .webp, .svg, .gif, .jifi',
+                image: 'El tipo de archivo no es permitido, solo se aceptan de tipo .png, .webp, .svg, .gif, .jifi',
             }));
             return;
         } else {
             setFormError((props) => ({
                 ...props,
-                imageFile: ''
+                image: ''
             }));
         }
 
         if (files[0]?.size > fileMaxSize) {
             setFormError((props) => ({
                 ...props,
-                imageFile: 'El archivo se excede del limite. El tamaño del archivo debe ser menor a 500 KB',
+                image: 'El archivo se excede del limite. El tamaño del archivo debe ser menor a 500 KB',
             }));
             return true;
         } else {
             setFormError((props) => ({
                 ...props,
-                imageFile: ''
+                image: ''
             }));
         }
 
@@ -86,29 +87,30 @@ const Upload = () => {
     const handleClick = async (event) => {
         event.preventDefault();
 
-        if (!form.imageFile) {
+        if (!form.image) {
             setFormError((props) => ({
                 ...props,
-                imageFile: 'El campo es requerido',
+                image: 'El campo es requerido',
             }));
             return;
         } else {
             setFormError((props) => ({
                 ...props,
-                imageFile: ''
+                image: ''
             }));
         }
 
-        if (formError.imageFile !== '') {
+        if (formError.image !== '') {
             return;
         }
 
-        const Form = new FormData();
-        Form.append('imageFile', form.imageFile);
+        const blob = new Blob([form.image]);
+        form['image'] = await useBase64(blob);
 
         setLoading(true);
+
         try {
-            const response = await axios.post('http://localhost:8463/imageProfile', Form);
+            const response = await axios.post('http://localhost:8463/imageProfile', form);
 
             return Toast({
                 text: response.data.msg,
@@ -116,7 +118,7 @@ const Upload = () => {
             });
         } catch (err) {
             return Toast({
-                text: err.message,
+                text: err.response.data.msg ?? err.message,
                 icon: 'error',
             });
         } finally {
@@ -185,8 +187,8 @@ const Upload = () => {
 
                                         <VisuallyHiddenInput
                                             type='file'
-                                            id='imageField'
-                                            name='imageFile'
+                                            id='image'
+                                            name='image'
                                             accept='image/*'
                                             onChange={handleOnChangeImg}
                                             multiple={false}
@@ -199,7 +201,7 @@ const Upload = () => {
                                             fontSize: '16px',
                                             paddingTop: 1,
                                         }}
-                                    >{formError.imageFile}</FormHelperText>
+                                    >{formError.image}</FormHelperText>
                                 </>
                             )
                         }

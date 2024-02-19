@@ -1,17 +1,17 @@
-const validLogin = (req, res, next) => {
+const validPlace = (req, res, next) => {
     const regexs = {
-        email: /^[a-zA-Z0-9.]+@{1}[a-zA-Z0-9.]+$/,
-        password: /.{8,}/,
+        token: /.*/s,
+        placeToVisit: /^[a-zA-Z\s]+$/,
     };
 
-    const { body } = req;
+    const { body, method } = req;
 
     if (Object.keys(body).length > Object.keys(regexs).length) {
-        return res.status(400).json({msg: 'Se enviaron campos demas'});
+        return res.status(400).json({ msg: 'Se enviaron campos demas' });
     }
 
     for (let value in regexs) {
-        if (!body[value]) {
+        if (!body[value] && method !== 'PUT') {
             return res.status(400).json({ msg: `Es requerido el campo ${value}` });
         }
 
@@ -23,4 +23,4 @@ const validLogin = (req, res, next) => {
     next();
 }
 
-module.exports = validLogin;
+module.exports = validPlace;

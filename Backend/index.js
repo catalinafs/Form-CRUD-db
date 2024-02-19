@@ -4,19 +4,24 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 //* Middlewares
-const { validRegister } = require('./middlewares/validRegister');
-const { validLogin } = require('./middlewares/validLogin');
-const { validToken } = require('./middlewares/validToken');
+const validRegister = require('./middlewares/validRegister');
+const validLogin = require('./middlewares/validLogin');
+const validToken = require('./middlewares/validToken');
+const validImgProfile = require('./middlewares/validImgProfile');
+const validPlace = require('./middlewares/validPlace');
+const validVisit = require('./middlewares/validVisit');
 
 //* Controllers
-const { RegisterUser } = require('./controllers/registerUser');
-const { EncodeData } = require('./controllers/encode');
-const { DecodeData } = require('./controllers/decode');
+const RegisterUser = require('./controllers/registerUser');
+const EncodeData = require('./controllers/encode');
+const DecodeData = require('./controllers/decode');
+const ImageProfile = require('./controllers/imageProfile');
+const RegisterPlace = require('./controllers/registerPlace');
+const RegisterVisit = require('./controllers/registerVisit');
+const GetUsersPlace = require('./controllers/getUsersPlace');
 
-//* db
-const db = require('./config/instance');
-const { DataTypes } = require('sequelize');
-const getRequest = require('./holis');
+//* db import
+const db = require('./db/instance');
 
 //* Constant variables
 const app = express();
@@ -26,10 +31,12 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
-//* Model Tables
-const User = require('./config/models/user')(db);
+//* DB Model Tables
+const User = require('./db/models/user');
+const Place = require('./db/models/place');
+const Visit = require('./db/models/visit');
 
-//* DB
+//* DB Sync
 db.sync().then(() => console.log('base de datos conectada'));
 
 //? POST: register user
@@ -41,7 +48,21 @@ app.post('/encode', validLogin, EncodeData);
 //? POST: decode endpoint
 app.post('/decode', validToken, DecodeData);
 
-app.get('/', getRequest);
+//? POST: image profile update
+app.post('/imageProfile', validImgProfile, ImageProfile);
+
+//? POST: create place
+app.post('/place', validPlace, RegisterPlace);
+
+//? POST: create visit
+app.post('/visit', validVisit, RegisterVisit);
+
+//? GET: get all users who visit a place
+app.get('/visit/place/:place_id', GetUsersPlace);
+
+// Visit.findAll({
+//     where: { id_user: 1, id_place: 2 },
+// });
 
 //* Listening app
 app.listen(port, () => {

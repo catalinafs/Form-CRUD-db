@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
-const db = require('../config/instance');
-const User = require('../config/models/user')(db);
+const User = require('../db/models/user');
 const useValidPass = require('../helpers/useValidPass');
 const useId = require('../helpers/useId');
 
@@ -29,6 +28,4 @@ const RegisterUser = async (req, res) => {
     }
 }
 
-module.exports = {
-    RegisterUser
-};
+module.exports = RegisterUser;

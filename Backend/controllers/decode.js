@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const db = require('../config/instance');
-const User = require('../config/models/user')(db);
+const User = require('../db/models/user');
 
 const DecodeData = async (req, res) => {
     const { token } = req.body;
@@ -33,6 +32,4 @@ const DecodeData = async (req, res) => {
     }
 }
 
-module.exports = {
-    DecodeData
-};
+module.exports = DecodeData;
