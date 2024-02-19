@@ -19,6 +19,7 @@ const ImageProfile = require('./controllers/imageProfile');
 const RegisterPlace = require('./controllers/registerPlace');
 const RegisterVisit = require('./controllers/registerVisit');
 const GetUsersPlace = require('./controllers/getUsersPlace');
+const GetPlacesUser = require('./controllers/getPlacesUser');
 
 //* db import
 const db = require('./db/instance');
@@ -59,6 +60,9 @@ app.post('/visit', validVisit, RegisterVisit);
 
 //? GET: get all users who visit a place
 app.get('/visit/place/:place_id', GetUsersPlace);
+
+//? GET: get all the places one user visit
+app.get('/visit/user/:user_id', GetPlacesUser);
 
 // Visit.findAll({
 //     where: { id_user: 1, id_place: 2 },
